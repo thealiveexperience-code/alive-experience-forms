@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Intake - The Alive Experience</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("B2V63uY_MzFNtXKAW");
+        })();
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #27ae60;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .intro {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .intro h2 {
+            color: #27ae60;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .waiver-section {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .waiver-section h2 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .waiver-section h3 {
+            color: #34495e;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .waiver-section p {
+            text-align: justify;
+            margin-bottom: 12px;
+        }
+
+        .waiver-section ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .waiver-section li {
+            margin-bottom: 8px;
+        }
+        
+        .section {
+            background: #f8f9fa;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "●";
+            color: #27ae60;
+            font-size: 28px;
+            margin-right: 12px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        label .optional {
+            font-weight: 400;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #27ae60;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            margin: 15px 0;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        .checkbox-item input[type="checkbox"],
+        .checkbox-item input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 4px;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-item label {
+            font-weight: normal;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .scale-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .scale-options label {
+            font-weight: normal;
+            font-size: 14px;
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scale-options input[type="radio"] {
+            display: none;
+        }
+
+        .scale-options input[type="radio"]:checked + label {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .important-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .important-box strong {
+            color: #856404;
+        }
+        
+        .submit-button {
+            background: #27ae60;
+            color: white;
+            padding: 16px 50px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+        
+        .submit-button:hover {
+            background: #229954;
+        }
+
+        .submit-button:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+            padding: 25px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+            padding: 25px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .required-note {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .progress-indicator {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: #27ae60;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .scale-options {
+                flex-wrap: wrap;
+            }
+
+            .scale-options label {
+                flex: 0 0 calc(20% - 10px);
+                margin: 5px;
+                padding: 8px 5px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>THE ALIVE EXPERIENCE</h1>
+            <p>Complete Client Intake Form</p>
+            <p style="font-size: 14px; color: #95a5a6;">Health Questionnaire & Liability Waiver</p>
+        </div>
+
+        <div class="progress-indicator">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="intro">
+            <h2>Welcome to Your Transformation!</h2>
+            <p>This comprehensive form includes both your health & goals questionnaire and our liability waiver.</p>
+            <p><strong>Please complete all sections carefully.</strong> Your responses help us create the perfect training plan for you.</p>
+            <p style="margin-top: 10px; font-size: 14px;">⏱️ Estimated time: 15-20 minutes</p>
+        </div>
+
+        <form id="completeIntakeForm">
+            
+            <!-- SECTION 1: BASIC INFORMATION -->
+            <div class="section">
+                <h2 class="section-title">Basic Information</h2>
+                
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="fullName">Full Legal Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age *</label>
+                        <input type="number" id="age" name="age" min="18" max="100" required>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="dob">Date of Birth *</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="occupation">Occupation <span class="optional">(optional)</span></label>
+                        <input type="text" id="occupation" name="occupation">
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="address">Street Address *</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city">City, State, ZIP *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="referralSource">How did you hear about us? *</label>
+                    <select id="referralSource" name="referralSource" required>
+                        <option value="">Select one...</option>
+                        <option value="Friend/Family Referral">Friend/Family Referral</option>
+                        <option value="Social Media">Social Media</option>
+                        <option value="Google Search">Google Search</option>
+                        <option value="Website">Website</option>
+                        <option value="Previous Client">Previous Client</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECTION 2: EMERGENCY CONTACT -->
+            <div class="section">
+                <h2 class="section-title">Emergency Contact</h2>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="emergencyName">Emergency Contact Name *</label>
+                        <input type="text" id="emergencyName" name="emergencyName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergencyPhone">Emergency Contact Phone *</label>
+                        <input type="tel" id="emergencyPhone" name="emergencyPhone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="emergencyRelationship">Relationship *</label>
+                    <input type="text" id="emergencyRelationship" name="emergencyRelationship" required>
+                </div>
+            </div>
+
+            <!-- SECTION 3: CURRENT HEALTH STATUS -->
+            <div class="section">
+                <h2 class="section-title">Current Health Status</h2>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="currentWeight">Current Weight (lbs) *</label>
+                        <input type="number" id="currentWeight" name="currentWeight" min="50" max="500" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">Height (e.g., 5'10") *</label>
+                        <input type="text" id="height" name="height" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you have any current injuries or physical limitations? *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="radio" id="injuriesYes" name="hasInjuries" value="Yes" required>
+                            <label for="injuriesYes">Yes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="injuriesNo" name="hasInjuries" value="No">
+                            <label for="injuriesNo">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="injuriesDetails">If yes, please describe:</label>
+                    <textarea id="injuriesDetails" name="injuriesDetails" placeholder="List any injuries, pain areas, surgeries, or physical limitations..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Medical conditions (select all that apply) *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionNone" name="medicalConditions" value="None">
+                            <label for="conditionNone">None</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionDiabetes" name="medicalConditions" value="Diabetes">
+                            <label for="conditionDiabetes">Diabetes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionHeart" name="medicalConditions" value="Heart Disease">
+                            <label for="conditionHeart">Heart Disease / High Blood Pressure</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionAsthma" name="medicalConditions" value="Asthma">
+                            <label for="conditionAsthma">Asthma / Respiratory Issues</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionArthritis" name="medicalConditions" value="Arthritis">
+                            <label for="conditionArthritis">Arthritis / Joint Issues</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionBack" name="medicalConditions" value="Back Pain">
+                            <label for="conditionBack">Chronic Back Pain</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="conditionOther" name="medicalConditions" value="Other">
+                            <label for="conditionOther">Other (please specify below)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="medicationsSupplements">Current Medications & Supplements</label>
+                    <textarea id="medicationsSupplements" name="medicationsSupplements" placeholder="List all medications, vitamins, and supplements..."></textarea>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="physicianName">Primary Physician Name</label>
+                        <input type="text" id="physicianName" name="physicianName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="physicianPhone">Primary Physician Phone</label>
+                        <input type="tel" id="physicianPhone" name="physicianPhone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sleepQuality">Sleep quality *</label>
+                    <select id="sleepQuality" name="sleepQuality" required>
+                        <option value="">Select one...</option>
+                        <option value="Excellent (7-9 hrs, wake refreshed)">Excellent (7-9 hrs, wake refreshed)</option>
+                        <option value="Good (6-8 hrs, mostly rested)">Good (6-8 hrs, mostly rested)</option>
+                        <option value="Fair (5-7 hrs, sometimes tired)">Fair (5-7 hrs, sometimes tired)</option>
+                        <option value="Poor (under 6 hrs, often exhausted)">Poor (under 6 hrs, often exhausted)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="stressLevel">Current stress level (1 = No stress, 10 = Extremely stressed) *</label>
+                    <div class="scale-options">
+                        <span><input type="radio" id="stress1" name="stressLevel" value="1" required><label for="stress1">1</label></span>
+                        <span><input type="radio" id="stress2" name="stressLevel" value="2"><label for="stress2">2</label></span>
+                        <span><input type="radio" id="stress3" name="stressLevel" value="3"><label for="stress3">3</label></span>
+                        <span><input type="radio" id="stress4" name="stressLevel" value="4"><label for="stress4">4</label></span>
+                        <span><input type="radio" id="stress5" name="stressLevel" value="5"><label for="stress5">5</label></span>
+                        <span><input type="radio" id="stress6" name="stressLevel" value="6"><label for="stress6">6</label></span>
+                        <span><input type="radio" id="stress7" name="stressLevel" value="7"><label for="stress7">7</label></span>
+                        <span><input type="radio" id="stress8" name="stressLevel" value="8"><label for="stress8">8</label></span>
+                        <span><input type="radio" id="stress9" name="stressLevel" value="9"><label for="stress9">9</label></span>
+                        <span><input type="radio" id="stress10" name="stressLevel" value="10"><label for="stress10">10</label></span>
+                    </div>
+                    <div class="scale-labels">
+                        <span>No Stress</span>
+                        <span>Extremely Stressed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: FITNESS BACKGROUND -->
+            <div class="section">
+                <h2 class="section-title">Fitness Background</h2>
+
+                <div class="form-group">
+                    <label for="currentFitnessLevel">Current fitness level *</label>
+                    <select id="currentFitnessLevel" name="currentFitnessLevel" required>
+                        <option value="">Select one...</option>
+                        <option value="Beginner (little to no exercise)">Beginner (little to no exercise)</option>
+                        <option value="Some Experience (1-2x per week)">Some Experience (1-2x per week)</option>
+                        <option value="Intermediate (3-4x per week)">Intermediate (3-4x per week)</option>
+                        <option value="Advanced (5+ per week)">Advanced (5+ per week)</option>
+                        <option value="Athlete/Competitive">Athlete/Competitive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exerciseFrequency">Current exercise frequency *</label>
+                    <select id="exerciseFrequency" name="exerciseFrequency" required>
+                        <option value="">Select one...</option>
+                        <option value="Not at all">Not at all</option>
+                        <option value="1-2 times per week">1-2 times per week</option>
+                        <option value="3-4 times per week">3-4 times per week</option>
+                        <option value="5-6 times per week">5-6 times per week</option>
+                        <option value="Daily">Daily</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Exercise types you enjoy (select all that apply) *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseNone" name="exerciseTypes" value="None/New to fitness">
+                            <label for="exerciseNone">None / New to fitness</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseWeights" name="exerciseTypes" value="Weight Training">
+                            <label for="exerciseWeights">Weight Training</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseCardio" name="exerciseTypes" value="Cardio">
+                            <label for="exerciseCardio">Cardio (Running, Cycling, etc.)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseHIIT" name="exerciseTypes" value="HIIT">
+                            <label for="exerciseHIIT">HIIT / Circuit Training</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseYoga" name="exerciseTypes" value="Yoga/Pilates">
+                            <label for="exerciseYoga">Yoga / Pilates</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseSports" name="exerciseTypes" value="Sports">
+                            <label for="exerciseSports">Sports (Basketball, Tennis, etc.)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exerciseGroup" name="exerciseTypes" value="Group Classes">
+                            <label for="exerciseGroup">Group Fitness Classes</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="previousTraining">Previous personal training experience *</label>
+                    <select id="previousTraining" name="previousTraining" required>
+                        <option value="">Select one...</option>
+                        <option value="No, this is my first time">No, this is my first time</option>
+                        <option value="Yes, briefly (1-3 months)">Yes, briefly (1-3 months)</option>
+                        <option value="Yes, for several months">Yes, for several months</option>
+                        <option value="Yes, long-term (6+ months)">Yes, long-term (6+ months)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="workoutBarriers">What prevents you from working out consistently? *</label>
+                    <textarea id="workoutBarriers" name="workoutBarriers" placeholder="Time constraints, motivation, not knowing what to do, injuries, etc..." required></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 5: NUTRITION & LIFESTYLE -->
+            <div class="section">
+                <h2 class="section-title">Nutrition & Lifestyle</h2>
+
+                <div class="form-group">
+                    <label for="currentDiet">Current eating habits *</label>
+                    <select id="currentDiet" name="currentDiet" required>
+                        <option value="">Select one...</option>
+                        <option value="Excellent (balanced, whole foods)">Excellent (balanced, whole foods)</option>
+                        <option value="Good (mostly healthy)">Good (mostly healthy)</option>
+                        <option value="Fair (some healthy, some not)">Fair (some healthy, some not)</option>
+                        <option value="Poor (mostly processed/fast food)">Poor (mostly processed/fast food)</option>
+                        <option value="Inconsistent/Unpredictable">Inconsistent/Unpredictable</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Dietary approach (select all that apply) *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dietNone" name="dietaryApproach" value="No specific diet">
+                            <label for="dietNone">No specific diet</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dietKeto" name="dietaryApproach" value="Keto/Low Carb">
+                            <label for="dietKeto">Keto / Low Carb</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dietPaleo" name="dietaryApproach" value="Paleo">
+                            <label for="dietPaleo">Paleo</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dietVegan" name="dietaryApproach" value="Vegan/Vegetarian">
+                            <label for="dietVegan">Vegan / Vegetarian</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dietIF" name="dietaryApproach" value="Intermittent Fasting">
+                            <label for="dietIF">Intermittent Fasting</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dietMacro" name="dietaryApproach" value="Macro Counting">
+                            <label for="dietMacro">Macro Counting / Tracking</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="waterIntake">Daily water intake *</label>
+                        <select id="waterIntake" name="waterIntake" required>
+                            <option value="">Select one...</option>
+                            <option value="Less than 4 glasses">Less than 4 glasses</option>
+                            <option value="4-6 glasses">4-6 glasses</option>
+                            <option value="7-8 glasses (recommended)">7-8 glasses (recommended)</option>
+                            <option value="More than 8 glasses">More than 8 glasses</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alcoholConsumption">Alcohol consumption *</label>
+                        <select id="alcoholConsumption" name="alcoholConsumption" required>
+                            <option value="">Select one...</option>
+                            <option value="None">None</option>
+                            <option value="1-2 drinks per week">1-2 drinks per week</option>
+                            <option value="3-5 drinks per week">3-5 drinks per week</option>
+                            <option value="6-10 drinks per week">6-10 drinks per week</option>
+                            <option value="More than 10 drinks per week">More than 10 drinks per week</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="nutritionChallenges">Biggest nutrition challenges *</label>
+                    <textarea id="nutritionChallenges" name="nutritionChallenges" placeholder="Late night snacking, eating out often, portion control, sugar cravings, etc..." required></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 6: GOALS & MOTIVATION -->
+            <div class="section">
+                <h2 class="section-title">Goals & Motivation</h2>
+
+                <div class="form-group">
+                    <label>Primary fitness goals (select all that apply) *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalWeightLoss" name="fitnessGoals" value="Weight Loss/Fat Loss">
+                            <label for="goalWeightLoss">Weight Loss / Fat Loss</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalMuscle" name="fitnessGoals" value="Build Muscle/Strength">
+                            <label for="goalMuscle">Build Muscle / Increase Strength</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalEndurance" name="fitnessGoals" value="Improve Endurance">
+                            <label for="goalEndurance">Improve Cardiovascular Endurance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalTone" name="fitnessGoals" value="Tone/Define">
+                            <label for="goalTone">Tone & Define Body</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalEnergy" name="fitnessGoals" value="Increase Energy">
+                            <label for="goalEnergy">Increase Energy Levels</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalHealth" name="fitnessGoals" value="Overall Health">
+                            <label for="goalHealth">Improve Overall Health</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalSports" name="fitnessGoals" value="Sports Performance">
+                            <label for="goalSports">Sports Performance / Athletic Training</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="goalMobility" name="fitnessGoals" value="Flexibility/Mobility">
+                            <label for="goalMobility">Improve Flexibility / Mobility</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="targetWeight">Target weight (if applicable)</label>
+                        <input type="number" id="targetWeight" name="targetWeight" min="50" max="500" placeholder="lbs">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goalTimeline">Timeline for goals *</label>
+                        <select id="goalTimeline" name="goalTimeline" required>
+                            <option value="">Select one...</option>
+                            <option value="1-3 months">1-3 months</option>
+                            <option value="3-6 months">3-6 months</option>
+                            <option value="6-12 months">6-12 months</option>
+                            <option value="1+ years (long-term lifestyle)">1+ years (long-term lifestyle)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="whyNow">Why is NOW the right time to start? *</label>
+                    <textarea id="whyNow" name="whyNow" placeholder="What's driving you to take action now? Be specific..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="biggestMotivator">Your BIGGEST motivator *</label>
+                    <textarea id="biggestMotivator" name="biggestMotivator" placeholder="Health scare, upcoming event, wanting to be active with kids, tired of feeling tired, etc..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="successMeasure">How will you know when you've succeeded? *</label>
+                    <textarea id="successMeasure" name="successMeasure" placeholder="Specific number on the scale, fitting into certain clothes, running a 5K, feeling energized, etc..." required></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 7: TRAINING PREFERENCES -->
+            <div class="section">
+                <h2 class="section-title">Training Preferences</h2>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="trainingFrequency">Training days per week *</label>
+                        <select id="trainingFrequency" name="trainingFrequency" required>
+                            <option value="">Select one...</option>
+                            <option value="2 days per week">2 days per week</option>
+                            <option value="3 days per week">3 days per week</option>
+                            <option value="4 days per week">4 days per week</option>
+                            <option value="5+ days per week">5+ days per week</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferredSessionLength">Preferred session length *</label>
+                        <select id="preferredSessionLength" name="preferredSessionLength" required>
+                            <option value="">Select one...</option>
+                            <option value="30 minutes">30 minutes</option>
+                            <option value="45 minutes">45 minutes</option>
+                            <option value="60 minutes">60 minutes</option>
+                            <option value="90 minutes">90 minutes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="bestTrainingTime">Best time for training *</label>
+                        <select id="bestTrainingTime" name="bestTrainingTime" required>
+                            <option value="">Select one...</option>
+                            <option value="Early Morning (5-7am)">Early Morning (5-7am)</option>
+                            <option value="Morning (7-10am)">Morning (7-10am)</option>
+                            <option value="Midday (10am-2pm)">Midday (10am-2pm)</option>
+                            <option value="Afternoon (2-5pm)">Afternoon (2-5pm)</option>
+                            <option value="Evening (5-8pm)">Evening (5-8pm)</option>
+                            <option value="Flexible">Flexible</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trainingStyle">Preferred training style *</label>
+                        <select id="trainingStyle" name="trainingStyle" required>
+                            <option value="">Select one...</option>
+                            <option value="High intensity, push me hard">High intensity, push me hard</option>
+                            <option value="Moderate pace, steady progress">Moderate pace, steady progress</option>
+                            <option value="Low impact, gentle approach">Low impact, gentle approach</option>
+                            <option value="Varied, keep it interesting">Varied, keep it interesting</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountability">Accountability level needed *</label>
+                    <select id="accountability" name="accountability" required>
+                        <option value="">Select one...</option>
+                        <option value="Highly self-motivated">Highly self-motivated, I just need the plan</option>
+                        <option value="Some check-ins">Regular check-ins help me stay on track</option>
+                        <option value="Frequent support">Frequent support and encouragement needed</option>
+                        <option value="Maximum accountability">Maximum accountability, I need someone on me</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SECTION 8: BET ON YOURSELF & BUDGET -->
+            <div class="section">
+                <h2 class="section-title">Program Interest & Budget</h2>
+
+                <div class="form-group">
+                    <label>Are you interested in the "Bet On Yourself" Challenge? *</label>
+                    <p style="font-size: 14px; color: #7f8c8d; margin-bottom: 10px;">
+                        $500/month buy-in • Lose 10+ lbs = FREE training + $500 refund • Under 10 lbs = $50/lb shortage
+                    </p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="radio" id="challengeYes" name="betChallenge" value="Yes, tell me more!" required>
+                            <label for="challengeYes">Yes, tell me more!</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="challengeMaybe" name="betChallenge" value="Maybe, I'm interested">
+                            <label for="challengeMaybe">Maybe, I'm interested</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="challengeNo" name="betChallenge" value="No, not right now">
+                            <label for="challengeNo">No, not right now</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">Monthly budget for training *</label>
+                    <select id="budget" name="budget" required>
+                        <option value="">Select one...</option>
+                        <option value="Under $300">Under $300</option>
+                        <option value="$300-$500">$300-$500</option>
+                        <option value="$500-$750">$500-$750</option>
+                        <option value="$750-$1000">$750-$1000</option>
+                        <option value="$1000+">$1000+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalNotes">Additional notes or questions</label>
+                    <textarea id="additionalNotes" name="additionalNotes" placeholder="Past experiences, specific concerns, questions, special considerations, etc..."></textarea>
+                </div>
+            </div>
+
+            <!-- LIABILITY WAIVER SECTION -->
+            <div class="waiver-section">
+                <h2>LIABILITY WAIVER & RELEASE</h2>
+                <p style="font-weight: bold; color: #e74c3c; margin-bottom: 15px;">PLEASE READ CAREFULLY BEFORE SIGNING</p>
+
+                <h3>1. ASSUMPTION OF RISK</h3>
+                <p>I understand and acknowledge that participation in fitness training and physical exercise carries inherent risks, including but not limited to:</p>
+                <ul>
+                    <li>Muscle strains, sprains, tears, and other soft tissue injuries</li>
+                    <li>Bone fractures or stress fractures</li>
+                    <li>Joint injuries or aggravation of pre-existing conditions</li>
+                    <li>Cardiovascular events including abnormal blood pressure, heart attack, or stroke</li>
+                    <li>Fainting, dizziness, or loss of consciousness</li>
+                    <li>Heat exhaustion, heat stroke, or dehydration</li>
+                    <li>Allergic reactions to supplements or nutritional recommendations</li>
+                    <li>In rare instances, permanent disability or death</li>
+                </ul>
+                <p>I hereby voluntarily assume all risks associated with my participation in training programs.</p>
+
+                <h3>2. RELEASE OF LIABILITY</h3>
+                <p><strong>I HEREBY RELEASE, WAIVE, DISCHARGE, AND COVENANT NOT TO SUE</strong> The Alive Experience, its owners, operators, trainers, employees, agents, contractors, and representatives from any and all liability, claims, demands, actions, or causes of action arising out of or related to any loss, damage, injury, or death that may be sustained by me during participation in training programs, whether caused by the negligence of the Released Parties, equipment malfunction, facility conditions, or any other cause whatsoever.</p>
+
+                <h3>3. INDEMNIFICATION</h3>
+                <p>I agree to INDEMNIFY, DEFEND, AND HOLD HARMLESS the Released Parties from any and all claims, actions, damages, liabilities, costs, and expenses (including attorney's fees) arising out of or resulting from my participation in training programs.</p>
+
+                <h3>4. MEDICAL CLEARANCE</h3>
+                <p>I represent and warrant that I am physically and mentally capable of participating in fitness training. I have either:</p>
+                <ul>
+                    <li>Consulted with a licensed physician regarding my ability to participate in exercise programs, OR</li>
+                    <li>Chosen to participate without physician clearance and accept full responsibility for this decision</li>
+                </ul>
+
+                <h3>5. NO MEDICAL OR PROFESSIONAL ADVICE</h3>
+                <p>I understand that The Alive Experience is not a licensed medical provider and does not provide medical diagnosis, treatment, or advice. All fitness and nutritional guidance provided is for educational and motivational purposes only.</p>
+
+                <h3>6. PAYMENT TERMS - "BET ON YOURSELF" CHALLENGE</h3>
+                <p>If participating in the "Bet On Yourself" challenge, I understand and agree to:</p>
+                <ul>
+                    <li>Buy-in is $500 per month, paid in advance</li>
+                    <li>If I lose 10 or more pounds in the designated month, my training is FREE and the $500 is refunded</li>
+                    <li>If I lose under 10 pounds, I pay $50 per pound short of the 10-pound goal</li>
+                    <li>Payment is due immediately upon monthly weigh-in completion</li>
+                    <li>All weight measurements are final</li>
+                    <li>No refunds for voluntary withdrawal</li>
+                </ul>
+
+                <h3>7. PHOTO/VIDEO RELEASE</h3>
+                <p>I grant The Alive Experience permission to use photographs, videos, or testimonials featuring me for marketing and promotional purposes, unless I specifically opt out in writing.</p>
+
+                <div class="important-box">
+                    <p><strong>IMPORTANT:</strong> This release extends to all claims of every kind and nature whatsoever, known or unknown, suspected or unsuspected, including claims for negligence, and covers both present and future claims.</p>
+                </div>
+            </div>
+
+            <!-- WAIVER ACKNOWLEDGMENT -->
+            <div class="section">
+                <h2 class="section-title">Waiver Acknowledgment & Consent</h2>
+
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="readWaiver" name="readWaiver" required>
+                        <label for="readWaiver">I have read and understand the entire Liability Waiver & Release above. *</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="assumeRisk" name="assumeRisk" required>
+                        <label for="assumeRisk">I voluntarily assume all risks associated with participation in fitness training. *</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="releaseWaiver" name="releaseWaiver" required>
+                        <label for="releaseWaiver">I release and waive all claims against The Alive Experience and agree to the terms of the liability waiver. *</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="medicalClearance" name="medicalClearance" required>
+                        <label for="medicalClearance">I have either obtained medical clearance to participate OR I assume full responsibility for participating without physician approval. *</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="accurateInfo" name="accurateInfo" required>
+                        <label for="accurateInfo">All health information I provided is complete and accurate to the best of my knowledge. *</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="photoRelease" name="photoRelease">
+                        <label for="photoRelease">I consent to the use of my photos/videos for marketing purposes (optional).</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ELECTRONIC SIGNATURE -->
+            <div class="section">
+                <h2 class="section-title">Electronic Signature</h2>
+
+                <div class="important-box">
+                    <p><strong>ACKNOWLEDGMENT:</strong> I HAVE CAREFULLY READ THIS ENTIRE FORM AND FULLY UNDERSTAND ITS CONTENTS. I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT. I SIGN THIS VOLUNTARILY AND WITH FULL KNOWLEDGE OF ITS SIGNIFICANCE.</p>
+                </div>
+
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="signature">Full Name (Electronic Signature) *</label>
+                        <input type="text" id="signature" name="signature" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signatureDate">Date *</label>
+                        <input type="date" id="signatureDate" name="signatureDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="parentGuardian">Parent/Guardian Name (if under 18)</label>
+                    <input type="text" id="parentGuardian" name="parentGuardian">
+                </div>
+            </div>
+
+            <p class="required-note">* Required fields</p>
+
+            <button type="submit" class="submit-button">Submit Complete Intake Form</button>
+
+            <div class="success-message" id="successMessage">
+                <h3>✓ Intake Form Submitted Successfully!</h3>
+                <p>Thank you for completing your health questionnaire and liability waiver.</p>
+                <p>We'll review your information and reach out within 24 hours to discuss your personalized training plan.</p>
+                <p><strong>Get ready to transform your life!</strong></p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                <h3>Submission Error</h3>
+                <p>There was a problem submitting your form. Please try again or contact us directly at thealiveexperience@gmail.com</p>
+            </div>
+        </form>
+
+        <div class="footer">
+            <p><strong>THE ALIVE EXPERIENCE</strong></p>
+            <p>Email: thealiveexperience@gmail.com</p>
+            <p>&copy; 2024 The Alive Experience. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar
+        const form = document.getElementById('completeIntakeForm');
+        const progressBar = document.getElementById('progressBar');
+        const sections = document.querySelectorAll('.section, .waiver-section');
+        
+        function updateProgress() {
+            const scrollPosition = window.scrollY;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollPosition / documentHeight) * 100;
+            progressBar.style.width = progress + '%';
+        }
+        
+        window.addEventListener('scroll', updateProgress);
+
+        // Set today's date as default for signature date
+        document.getElementById('signatureDate').valueAsDate = new Date();
+        
+        // Handle form submission with EmailJS
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitButton = event.target.querySelector('.submit-button');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            
+            // Hide any previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Collect checkbox values
+            function getCheckboxValues(name) {
+                const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+                return Array.from(checkboxes).map(cb => cb.value).join(', ') || 'None';
+            }
+
+            function getRadioValue(name) {
+                const radio = document.querySelector(`input[name="${name}"]:checked`);
+                return radio ? radio.value : 'Not specified';
+            }
+            
+            // Collect form data
+            const formData = {
+                // Basic Info
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                age: document.getElementById('age').value,
+                dob: document.getElementById('dob').value,
+                occupation: document.getElementById('occupation').value || 'Not provided',
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                referralSource: document.getElementById('referralSource').value,
+                
+                // Emergency Contact
+                emergencyName: document.getElementById('emergencyName').value,
+                emergencyPhone: document.getElementById('emergencyPhone').value,
+                emergencyRelationship: document.getElementById('emergencyRelationship').value,
+                
+                // Health Status
+                currentWeight: document.getElementById('currentWeight').value,
+                height: document.getElementById('height').value,
+                hasInjuries: getRadioValue('hasInjuries'),
+                injuriesDetails: document.getElementById('injuriesDetails').value || 'None',
+                medicalConditions: getCheckboxValues('medicalConditions'),
+                medicationsSupplements: document.getElementById('medicationsSupplements').value || 'None',
+                physicianName: document.getElementById('physicianName').value || 'Not provided',
+                physicianPhone: document.getElementById('physicianPhone').value || 'N/A',
+                sleepQuality: document.getElementById('sleepQuality').value,
+                stressLevel: getRadioValue('stressLevel'),
+                
+                // Fitness Background
+                currentFitnessLevel: document.getElementById('currentFitnessLevel').value,
+                exerciseFrequency: document.getElementById('exerciseFrequency').value,
+                exerciseTypes: getCheckboxValues('exerciseTypes'),
+                previousTraining: document.getElementById('previousTraining').value,
+                workoutBarriers: document.getElementById('workoutBarriers').value,
+                
+                // Nutrition & Lifestyle
+                currentDiet: document.getElementById('currentDiet').value,
+                dietaryApproach: getCheckboxValues('dietaryApproach'),
+                waterIntake: document.getElementById('waterIntake').value,
+                alcoholConsumption: document.getElementById('alcoholConsumption').value,
+                nutritionChallenges: document.getElementById('nutritionChallenges').value,
+                
+                // Goals & Motivation
+                fitnessGoals: getCheckboxValues('fitnessGoals'),
+                targetWeight: document.getElementById('targetWeight').value || 'Not specified',
+                goalTimeline: document.getElementById('goalTimeline').value,
+                whyNow: document.getElementById('whyNow').value,
+                biggestMotivator: document.getElementById('biggestMotivator').value,
+                successMeasure: document.getElementById('successMeasure').value,
+                
+                // Training Preferences
+                trainingFrequency: document.getElementById('trainingFrequency').value,
+                preferredSessionLength: document.getElementById('preferredSessionLength').value,
+                bestTrainingTime: document.getElementById('bestTrainingTime').value,
+                trainingStyle: document.getElementById('trainingStyle').value,
+                accountability: document.getElementById('accountability').value,
+                
+                // Program Interest
+                betChallenge: getRadioValue('betChallenge'),
+                budget: document.getElementById('budget').value,
+                additionalNotes: document.getElementById('additionalNotes').value || 'None',
+                
+                // Waiver Acknowledgments
+                readWaiver: document.getElementById('readWaiver').checked ? 'Yes' : 'No',
+                assumeRisk: document.getElementById('assumeRisk').checked ? 'Yes' : 'No',
+                releaseWaiver: document.getElementById('releaseWaiver').checked ? 'Yes' : 'No',
+                medicalClearance: document.getElementById('medicalClearance').checked ? 'Yes' : 'No',
+                accurateInfo: document.getElementById('accurateInfo').checked ? 'Yes' : 'No',
+                photoRelease: document.getElementById('photoRelease').checked ? 'Yes' : 'No',
+                
+                // Signature
+                signature: document.getElementById('signature').value,
+                signatureDate: document.getElementById('signatureDate').value,
+                parentGuardian: document.getElementById('parentGuardian').value || 'N/A',
+                
+                submissionTime: new Date().toLocaleString()
+            };
+            
+            // Send email using EmailJS - using the client agreement template for now
+            emailjs.send('service_2g66wh9', 'template_21rqbkw', formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    document.getElementById('signatureDate').valueAsDate = new Date();
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Complete Intake Form';
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    errorMessage.style.display = 'block';
+                    errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Complete Intake Form';
+                });
+        });
+    </script>
+</body>
+</html>
