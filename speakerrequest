@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Mr. J'ean to Speak | Transparency U</title>
+<meta name="description" content="Request Mr. J'ean for keynotes, seminars, workshops, and MC engagements. Nine years, 25+ events annually. Author. Speaker. Announcer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --gold:#C9963A;
+    --gold-light:#F5E6C8;
+    --gold-mid:#E8C57A;
+    --dark:#1A1714;
+    --mid:#3D3830;
+    --soft:#F7F3ED;
+    --white:#FFFFFF;
+    --text:#2C2820;
+    --muted:#7A6F62;
+    --border:#DDD5C4;
+    --accent:#8B4513;
+    --danger:#C0392B;
+  }
+
+  html{scroll-behavior:smooth}
+  #request-form{scroll-margin-top:60px}
+  body{font-family:'DM Sans',sans-serif;background:var(--soft);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+  /* ── NAV ── */
+  .nav{background:var(--dark);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(201,150,58,0.2)}
+  .nav-brand{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold);letter-spacing:0.5px}
+  .nav-brand span{color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:300;margin-left:10px;letter-spacing:1px;text-transform:uppercase}
+  .nav-cta{background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 20px;border-radius:6px;text-decoration:none;letter-spacing:0.3px;transition:background 0.2s}
+  .nav-cta:hover{background:#B8852E}
+
+  /* ── HERO ── */
+  .hero{background:var(--dark);color:#fff;padding:100px 40px 72px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(201,150,58,0.025) 0,rgba(201,150,58,0.025) 1px,transparent 1px,transparent 60px);pointer-events:none}
+  .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(201,150,58,0.4),transparent)}
+  .hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(38px,7vw,72px);font-weight:700;line-height:1.08;margin-bottom:20px;color:#fff}
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,0.6);max-width:540px;margin:0 auto 40px;line-height:1.75}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:52px}
+  .badge{background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.28);color:var(--gold);font-size:12px;font-weight:500;padding:7px 18px;border-radius:100px;letter-spacing:0.5px}
+  .hero-scroll{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .hero-scroll span{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.25)}
+  .hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(201,150,58,0.5),transparent)}
+
+  /* ── STATS BAR ── */
+  .stats-bar{background:#fff;border-bottom:1px solid var(--border);padding:28px 40px;display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+  .stat{text-align:center}
+  .stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--dark);line-height:1}
+  .stat-label{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.5px}
+
+  /* ── SECTIONS ── */
+  .section{padding:72px 40px;max-width:960px;margin:0 auto}
+  .section-label{font-size:11px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--dark);line-height:1.15;margin-bottom:10px}
+  .section-sub{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:44px;max-width:600px}
+
+  /* ── TOPIC CARDS ── */
+  .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:12px}
+  .topic-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:26px;cursor:pointer;transition:all 0.22s;position:relative;overflow:hidden;user-select:none}
+  .topic-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transition:transform 0.22s;transform-origin:bottom}
+  .topic-card:hover::before,.topic-card.selected::before{transform:scaleY(1)}
+  .topic-card:hover{border-color:rgba(201,150,58,0.5);transform:translateY(-3px);box-shadow:0 10px 28px rgba(201,150,58,0.1)}
+  .topic-card.selected{border-color:var(--gold);background:var(--gold-light)}
+  .topic-icon{font-size:24px;margin-bottom:14px;display:block;line-height:1}
+  .topic-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:7px}
+  .topic-desc{font-size:13px;color:var(--muted);line-height:1.65}
+  .topic-check{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.22s;font-size:11px;color:#fff;font-weight:700}
+  .topic-card.selected .topic-check{opacity:1}
+
+  /* ── QUOTE STRIP ── */
+  .quote-strip{background:var(--dark);padding:60px 40px;text-align:center;position:relative;overflow:hidden}
+  .quote-strip::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,rgba(201,150,58,0.02) 0,rgba(201,150,58,0.02) 1px,transparent 1px,transparent 50px)}
+  .quote-mark{font-family:'Playfair Display',serif;font-size:80px;color:var(--gold);line-height:0.4;margin-bottom:24px;display:block;opacity:0.4}
+  .quote-text{font-family:'Playfair Display',serif;font-size:clamp(19px,3vw,30px);font-style:italic;color:#fff;max-width:700px;margin:0 auto 22px;line-height:1.5}
+  .quote-attr{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}
+
+  /* ── FORM WRAPPER ── */
+  .form-wrap{padding:0 40px 72px}
+  .form-section{background:#fff;border-radius:18px;border:1px solid var(--border);overflow:hidden;max-width:960px;margin:0 auto;box-shadow:0 4px 40px rgba(26,23,20,0.06)}
+  .form-header{background:var(--dark);padding:36px 44px;position:relative;overflow:hidden}
+  .form-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(201,150,58,0.03) 0,rgba(201,150,58,0.03) 1px,transparent 1px,transparent 50px)}
+  .form-header h2{font-family:'Playfair Display',serif;color:#fff;font-size:28px;margin-bottom:6px;position:relative}
+  .form-header p{color:rgba(255,255,255,0.45);font-size:14px;line-height:1.6;position:relative}
+  .form-body{padding:44px}
+
+  /* ── FORM FIELDS ── */
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+  .form-row.single{grid-template-columns:1fr}
+  .form-row.triple{grid-template-columns:1fr 1fr 1fr}
+  .form-group{display:flex;flex-direction:column;gap:7px}
+  label{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  label .req{color:var(--gold);margin-left:2px}
+  input,select,textarea{width:100%;padding:13px 17px;background:var(--soft);border:1px solid var(--border);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--dark);outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none}
+  input::placeholder,textarea::placeholder{color:#B5AA9C}
+  input:focus,select:focus,textarea:focus{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px rgba(201,150,58,0.08)}
+  input.error,select.error,textarea.error{border-color:var(--danger)}
+  select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%237A6F62' d='M5 7L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:10px;padding-right:40px}
+  textarea{resize:vertical;min-height:110px;line-height:1.65}
+
+  .selected-topics-box{background:var(--gold-light);border:1px solid rgba(201,150,58,0.3);border-radius:9px;padding:13px 17px;font-size:13px;color:var(--mid);min-height:46px;line-height:1.6;transition:all 0.2s}
+  .selected-topics-box.empty{color:var(--muted);font-style:italic}
+
+  .radio-group{display:flex;flex-wrap:wrap;gap:12px;padding-top:4px}
+  .radio-opt{display:flex;align-items:center;gap:7px;cursor:pointer}
+  .radio-opt input[type=radio]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+  .radio-opt span{font-size:14px;color:var(--text)}
+
+  .form-divider{height:1px;background:var(--border);margin:32px 0}
+
+  /* ── SUBMIT ── */
+  .submit-btn{width:100%;padding:18px;background:var(--gold);border:none;border-radius:10px;font-family:'Playfair Display',serif;font-size:20px;color:#fff;cursor:pointer;letter-spacing:0.3px;transition:all 0.22s}
+  .submit-btn:hover{background:#B8852E;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,150,58,0.3)}
+  .submit-btn:active{transform:translateY(0);box-shadow:none}
+  .submit-btn:disabled{background:#D3C4A8;cursor:not-allowed;transform:none;box-shadow:none}
+
+  .form-note{text-align:center;font-size:12px;color:var(--muted);margin-top:18px;line-height:1.7}
+  .form-note a{color:var(--gold);text-decoration:none}
+  .form-note a:hover{text-decoration:underline}
+  .form-note strong{color:var(--mid)}
+
+  /* ── SUCCESS ── */
+  .success-panel{display:none;text-align:center;padding:64px 40px}
+  .success-icon{width:68px;height:68px;border-radius:50%;background:var(--gold-light);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:28px}
+  .success-panel h2{font-family:'Playfair Display',serif;font-size:30px;color:var(--dark);margin-bottom:14px}
+  .success-panel p{font-size:15px;color:var(--muted);line-height:1.75;max-width:420px;margin:0 auto}
+  .success-panel .follow{margin-top:24px;font-size:13px;color:var(--gold);letter-spacing:1px}
+
+  /* ── FOOTER ── */
+  .footer{background:var(--dark);padding:40px;text-align:center;border-top:1px solid rgba(201,150,58,0.15)}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);margin-bottom:10px}
+  .footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+  .footer-links a{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}
+  .footer-links a:hover{color:var(--gold)}
+  .footer-copy{font-size:12px;color:rgba(255,255,255,0.2)}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:640px){
+    .nav{padding:12px 20px}
+    .hero{padding:72px 24px 52px}
+    .stats-bar{gap:32px;padding:22px 24px}
+    .section{padding:52px 24px}
+    .topics-grid{grid-template-columns:1fr}
+    .quote-strip{padding:44px 24px}
+    .form-wrap{padding:0 20px 52px}
+    .form-header{padding:28px 24px}
+    .form-body{padding:28px 24px}
+    .form-row,.form-row.triple{grid-template-columns:1fr}
+    .footer{padding:32px 24px}
+    .footer-links{gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">Transparency U <span>· Book a Speaker</span></div>
+  <a class="nav-cta" href="#request-form" onclick="scrollToForm(event)">Request Mr. J'ean</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Book Mr. J'ean</p>
+  <h1>Bring the Start Line<br>to Your <em>Stage</em></h1>
+  <p class="hero-sub">Nine years. 25+ events annually. An author, speaker, and entertainer who doesn't just fill a room — he moves one.</p>
+  <div class="hero-badges">
+    <span class="badge">Keynote Speaking</span>
+    <span class="badge">Seminars &amp; Workshops</span>
+    <span class="badge">Corporate Events</span>
+    <span class="badge">Athletic Events</span>
+    <span class="badge">MC &amp; Announcer</span>
+    <span class="badge">Faith Communities</span>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll to request</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">9+</div><div class="stat-label">Years on the Start Line</div></div>
+  <div class="stat"><div class="stat-num">25+</div><div class="stat-label">Events Per Year</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">Published Books</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Energy in the Room</div></div>
+</div>
+
+<!-- TOPICS -->
+<div class="section">
+  <p class="section-label">What He Brings</p>
+  <h2 class="section-title">Choose Your Focus</h2>
+  <p class="section-sub">Select one or more topics — every session is tailored to your audience, your moment, and your mission.</p>
+
+  <div class="topics-grid" id="topicsGrid">
+    <div class="topic-card" data-topic="Personal Transformation" onclick="toggleTopic(this)">
+      <span class="topic-icon">🔥</span>
+      <p class="topic-name">Personal Transformation</p>
+      <p class="topic-desc">12-week frameworks for becoming who you were built to be. Mind, body, and purpose — no shortcuts, no excuses.</p>
+      <span class="topic-check">✓</span>
+    </div>
+    <div class="topic-card" data-topic="Resilience &amp; Grit" onclick="toggleTopic(this)">
+      <span class="topic-icon">🏁</span>
+      <p class="topic-name">Resilience &amp; Grit</p>
+      <p class="topic-desc">Lessons from the start line: how pressure, pain, and perseverance are the curriculum that builds real character.</p>
+      <span class="topic-check">✓</span>
+    </div>
+    <div class="topic-card" data-topic="Leadership &amp; Presence" onclick="toggleTopic(this)">
+      <span class="topic-icon">🎙️</span>
+      <p class="topic-name">Leadership &amp; Presence</p>
+      <p class="topic-desc">Command the room before you say a word. Voice, energy, and the kind of authentic authority people actually follow.</p>
+      <span class="topic-check">✓</span>
+    </div>
+    <div class="topic-card" data-topic="Health &amp; Wellness Culture" onclick="toggleTopic(this)">
+      <span class="topic-icon">💪</span>
+      <p class="topic-name">Health &amp; Wellness Culture</p>
+      <p class="topic-desc">Building teams and communities that take whole-person wellbeing seriously — and have fun doing it.</p>
+      <span class="topic-check">✓</span>
+    </div>
+    <div class="topic-card" data-topic="Faith &amp; Purpose" onclick="toggleTopic(this)">
+      <span class="topic-icon">✨</span>
+      <p class="topic-name">Faith &amp; Purpose</p>
+      <p class="topic-desc">Walking toward your calling with intention, humor, and a whole lot of grace. Scripture-grounded, life-tested.</p>
+      <span class="topic-check">✓</span>
+    </div>
+    <div class="topic-card" data-topic="Custom / Other" onclick="toggleTopic(this)">
+      <span class="topic-icon">🎯</span>
+      <p class="topic-name">Custom / Other</p>
+      <p class="topic-desc">Have something specific in mind? Describe it below. If there's an audience and a goal, we'll build the experience.</p>
+      <span class="topic-check">✓</span>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE STRIP -->
+<div class="quote-strip">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">Your audience doesn't need another speech. They need a moment they'll carry with them off the course and into their lives.</p>
+  <p class="quote-attr">— Mr. J'ean &nbsp;·&nbsp; Author &nbsp;·&nbsp; Speaker &nbsp;·&nbsp; MC</p>
+</div>
+
+<!-- REQUEST FORM -->
+<div id="request-form" style="background:var(--soft);padding-top:64px">
+  <div style="max-width:960px;margin:0 auto;padding:0 40px 28px">
+    <p class="section-label">Request a Booking</p>
+    <h2 class="section-title">Let's Make It Official</h2>
+    <p class="section-sub">Fill out the form and our team will respond within 48 hours to discuss availability, rates, and how to make your event unforgettable.</p>
+  </div>
+</div>
+
+<div class="form-wrap">
+  <div class="form-section">
+    <div class="form-header">
+      <h2>Speaking Request Form</h2>
+      <p>Fields marked with * are required. The more detail you give us, the better we can tailor the session to your audience.</p>
+    </div>
+
+    <div class="form-body" id="formBody">
+
+      <!-- CONTACT -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="firstName" placeholder="Your first name">
+        </div>
+        <div class="form-group">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" id="lastName" placeholder="Your last name">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="you@organization.com">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="(818) 000-0000">
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Organization / Company <span class="req">*</span></label>
+          <input type="text" id="org" placeholder="Name of your company, school, church, nonprofit, or event">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Title / Role</label>
+          <input type="text" id="role" placeholder="e.g. Event Coordinator, Pastor, HR Director">
+        </div>
+        <div class="form-group">
+          <label>Website (optional)</label>
+          <input type="url" id="website" placeholder="https://yourorganization.com">
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- EVENT DETAILS -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Event Type <span class="req">*</span></label>
+          <select id="eventType">
+            <option value="">Select event type…</option>
+            <option>Corporate Conference</option>
+            <option>Athletic / Race Event</option>
+            <option>Church / Faith Community</option>
+            <option>School / University</option>
+            <option>Workshop / Seminar</option>
+            <option>Private Event</option>
+            <option>Nonprofit / Community</option>
+            <option>Health &amp; Wellness Event</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Engagement Format <span class="req">*</span></label>
+          <select id="format">
+            <option value="">Select format…</option>
+            <option>Keynote (45–90 min)</option>
+            <option>Half-Day Seminar</option>
+            <option>Full-Day Workshop</option>
+            <option>Multi-Session Series</option>
+            <option>Panel / Moderated Discussion</option>
+            <option>MC / Host / Announcer Only</option>
+            <option>Opening or Closing Session</option>
+            <option>Not Sure Yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred Date <span class="req">*</span></label>
+          <input type="date" id="eventDate">
+        </div>
+        <div class="form-group">
+          <label>Alternate Date</label>
+          <input type="date" id="altDate">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>City &amp; State <span class="req">*</span></label>
+          <input type="text" id="location" placeholder="e.g. Los Angeles, CA">
+        </div>
+        <div class="form-group">
+          <label>In-Person or Virtual? <span class="req">*</span></label>
+          <select id="virtual">
+            <option value="">Select…</option>
+            <option>In-Person</option>
+            <option>Virtual / Online</option>
+            <option>Hybrid</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Expected Audience Size <span class="req">*</span></label>
+          <select id="audience">
+            <option value="">Select size…</option>
+            <option>Under 50</option>
+            <option>50 – 150</option>
+            <option>150 – 500</option>
+            <option>500 – 1,000</option>
+            <option>1,000+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <!-- TOPICS + GOALS -->
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Selected Topics (choose from above)</label>
+          <div class="selected-topics-box empty" id="topicsDisplay">No topics selected yet — scroll up and choose from the topic cards.</div>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Tell Us About Your Event &amp; Goals <span class="req">*</span></label>
+          <textarea id="goals" placeholder="What's the occasion? Who's in the room? What do you want them to walk away with? Any specific challenges, themes, or restrictions we should know about?"></textarea>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>Budget Range (optional)</label>
+          <select id="budget">
+            <option value="">Prefer not to say / Not sure</option>
+            <option>Under $1,000</option>
+            <option>$1,000 – $2,500</option>
+            <option>$2,500 – $5,000</option>
+            <option>$5,000 – $10,000</option>
+            <option>$10,000+</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>How Did You Hear About Us?</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="source" value="Social Media"><span>Social Media</span></label>
+            <label class="radio-opt"><input type="radio" name="source" value="Referral"><span>Referral</span></label>
+            <label class="radio-opt"><input type="radio" name="source" value="Past Event"><span>Past Event</span></label>
+            <label class="radio-opt"><input type="radio" name="source" value="Website Search"><span>Website Search</span></label>
+            <label class="radio-opt"><input type="radio" name="source" value="Other"><span>Other</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-divider"></div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Speaking Request →</button>
+      <p class="form-note">
+        By submitting, you agree to be contacted by the Transparency U / OBMDI Entertainment team regarding your request.<br>
+        Questions? Call <strong>(818) 495-5333</strong> or email <a href="mailto:transparencyula@gmail.com">transparencyula@gmail.com</a>
+      </p>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-panel" id="successPanel">
+      <div class="success-icon">✓</div>
+      <h2>Request Received!</h2>
+      <p>Thank you for reaching out. Our team will review your request and get back to you within 48 hours to discuss next steps. We're excited about what's possible.</p>
+      <p class="follow">Follow us @TheAliveExperience</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p class="footer-logo">Transparency: 12 Weeks To You</p>
+  <div class="footer-links">
+    <a href="https://www.transparencyu.com/home">Home</a>
+    <a href="https://www.transparencyu.com/resources">Resources</a>
+    <a href="https://www.transparencyu.com/media">Media</a>
+    <a href="https://tidycal.com/obmdient">Book a Session</a>
+    <a href="mailto:transparencyula@gmail.com">Contact</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Transparency U / OBMDI Entertainment. All rights reserved.</p>
+</footer>
+
+<script>
+  // ── EmailJS Config ──
+  const EMAILJS_SERVICE_ID  = 'service_743tmlo';
+  const EMAILJS_TEMPLATE_ID = 'template_6m6qfvk';
+  const EMAILJS_PUBLIC_KEY  = 'xsf-C0JcHjFudA2iq';
+
+  // Init EmailJS only after SDK is fully loaded
+  window.addEventListener('load', function() {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  });
+
+  // ── Scroll to form (nav-offset safe) ──
+  function scrollToForm(e) {
+    e.preventDefault();
+    const target = document.getElementById('request-form');
+    const navH = document.querySelector('.nav') ? document.querySelector('.nav').offsetHeight : 60;
+    const top = target.getBoundingClientRect().top + window.pageYOffset - navH;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  // ── Topic Selection ──
+  let selectedTopics = [];
+
+  function toggleTopic(el) {
+    const topic = el.getAttribute('data-topic');
+    el.classList.toggle('selected');
+    if (selectedTopics.includes(topic)) {
+      selectedTopics = selectedTopics.filter(t => t !== topic);
+    } else {
+      selectedTopics.push(topic);
+    }
+    const display = document.getElementById('topicsDisplay');
+    if (selectedTopics.length === 0) {
+      display.textContent = 'No topics selected yet — scroll up and choose from the topic cards.';
+      display.classList.add('empty');
+    } else {
+      display.textContent = selectedTopics.join(' · ');
+      display.classList.remove('empty');
+    }
+  }
+
+  // ── Form Submission ──
+  function submitForm() {
+    const required = [
+      { id: 'firstName', label: 'First Name' },
+      { id: 'lastName',  label: 'Last Name' },
+      { id: 'email',     label: 'Email Address' },
+      { id: 'org',       label: 'Organization' },
+      { id: 'eventType', label: 'Event Type' },
+      { id: 'format',    label: 'Engagement Format' },
+      { id: 'eventDate', label: 'Preferred Date' },
+      { id: 'location',  label: 'City & State' },
+      { id: 'virtual',   label: 'In-Person or Virtual' },
+      { id: 'audience',  label: 'Audience Size' },
+      { id: 'goals',     label: 'Event Goals' }
+    ];
+
+    // Validate
+    let missing = [];
+    required.forEach(({ id, label }) => {
+      const el = document.getElementById(id);
+      if (!el || !el.value.trim()) {
+        missing.push(label);
+        if (el) el.classList.add('error');
+      } else {
+        el.classList.remove('error');
+      }
+    });
+
+    if (missing.length) {
+      alert('Please complete the following required fields:\n\n' + missing.join('\n'));
+      const firstError = document.querySelector('.error');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Get source radio value
+    const sourceEl = document.querySelector('input[name="source"]:checked');
+
+    // Build template params — these must match your EmailJS template variable names exactly
+    const templateParams = {
+      first_name:   document.getElementById('firstName').value.trim(),
+      last_name:    document.getElementById('lastName').value.trim(),
+      email:        document.getElementById('email').value.trim(),
+      phone:        document.getElementById('phone').value.trim() || 'Not provided',
+      org:          document.getElementById('org').value.trim(),
+      role:         document.getElementById('role').value.trim() || 'Not provided',
+      website:      document.getElementById('website').value.trim() || 'Not provided',
+      event_type:   document.getElementById('eventType').value,
+      format:       document.getElementById('format').value,
+      event_date:   document.getElementById('eventDate').value,
+      alt_date:     document.getElementById('altDate').value || 'None provided',
+      location:     document.getElementById('location').value.trim(),
+      virtual:      document.getElementById('virtual').value,
+      audience:     document.getElementById('audience').value,
+      topics:       selectedTopics.length ? selectedTopics.join(', ') : 'None selected',
+      goals:        document.getElementById('goals').value.trim(),
+      budget:       document.getElementById('budget').value || 'Not specified',
+      source:       sourceEl ? sourceEl.value : 'Not specified',
+      reply_to:     document.getElementById('email').value.trim()
+    };
+
+    // Disable button and show sending state
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    // Send via EmailJS
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        document.getElementById('formBody').style.display = 'none';
+        document.getElementById('successPanel').style.display = 'block';
+        document.getElementById('successPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', err);
+        btn.disabled = false;
+        btn.textContent = 'Submit Speaking Request →';
+        alert('Something went wrong sending your request. Please try again or email us directly at transparencyula@gmail.com');
+      });
+  }
+
+  // Clear error state on input
+  document.addEventListener('DOMContentLoaded', () => {
+    ['firstName','lastName','email','org','eventType','format','eventDate','location','virtual','audience','goals'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => el.classList.remove('error'));
+    });
+  });
+</script>
+</body>
+</html>
